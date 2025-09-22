@@ -4,6 +4,7 @@ from flask_moment import Moment
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired, Email, ValidationError
+import os
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'hard to guess string'
@@ -57,3 +58,7 @@ def index():
 
     yesflag = bool(uoftmail and "utoronto" in uoftmail.lower())
     return render_template('index.html', form=form, name=session.get('name'), uoftmail = session.get('uoftmail'), yesflag=yesflag)
+
+if __name__ == "__main__":
+    port = int(os.environ.get('PORT', 5000))
+    app.run(debug=True, host='0.0.0.0', port=port)
